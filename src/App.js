@@ -8,9 +8,19 @@ function App() {
   const [password, setPassword] = useState("")
   
 
-  function login(){
-  
-    fetch(LOGIN_URL)
+  function login() {
+  const payload = {
+    email: email,
+    password: password
+  }
+    fetch(LOGIN_URL), {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(payload)
+    })
+    
   }
   return (
     <div>
