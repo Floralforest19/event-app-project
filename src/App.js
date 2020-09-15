@@ -2,6 +2,7 @@ import React, { useState, useReducer } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import EventListPage from './pages/EventListPage';
+import EventDetailPage from './pages/EventDetailPage';
 
 
 
@@ -11,6 +12,9 @@ function App() {
     <div>
       <User.Provider value={{token, setToken}}>
       <Switch>
+
+      <Route path="/event/:slug" component={EventDetailPage} />
+
         <Route path="/event-list">
      <EventListPage />
         </Route>
