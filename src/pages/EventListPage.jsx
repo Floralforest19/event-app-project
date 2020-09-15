@@ -1,12 +1,14 @@
-import React from 'react'
-import { useHistory } from 'react-router-dom'
+import React, {useContext, useEffect, useState} from 'react'
+import { UserContext } from './'
 
 const ROOT_URL = "http://yoshi.willandskill.eu:8999/api/v1/"
 const LOGIN_URL = `${ROOT_URL}auth/api-token-auth/`
 
 export default function EventListPage() {
     const {token} = useContext(UserContext)
-     useEffect(() => {
+    const [eventList, setEventList] = useState(null)
+    
+    useEffect(() => {
          fetchEventList()
      }, [])
 
@@ -17,10 +19,21 @@ export default function EventListPage() {
                 "Authorzation": `Bearer ${token}`
             }
         })
+        .then(res => res.json())
+        .then(data => {
+            setEventList(data.results)
+        })
      }
     return (
         <div>
             <h1>Event List Page</h1>
+            {eventList && eventList.map(eventItem => {
+                return (
+                    <div key={eventItem.id}>
+                        <p>{eventItem.title}</p>
+                    </div>
+                )
+            })}
         </div>
     )
 }
