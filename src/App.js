@@ -1,49 +1,26 @@
-import React, {useRef, useState} from 'react';
+import React, { useState, useReducer } from 'react';
+import { Switch, Route } from 'react-router-dom';
+import LoginPage from './pages/LoginPage';
+import EventListPage from './pages/EventListPage';
 
-const ROOT_URL = "http://yoshi.willandskill.eu:8999/api/v1/"
-const LOGIN_URL = `${ROOT_URL}auth/api-token-auth/`
+
 
 function App() {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  
-
-  function login() {
-  const payload = {
-    email: email,
-    password: password
-  }
-    fetch(LOGIN_URL), {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(payload)
-    })
-    
-  }
+ const [token, setToken] = useState(null)
   return (
     <div>
-     <h1> Event App</h1>
-     <div>
-       <div>
-         <label htmlFor="email">Email</label>
-         <input 
-         name="email"
-         type="email"
-         value="{email}"
-         onChange={(event) => setEmail(event.currentTarget.value)} 
-         placeholder="John.doe@company.com"/>
-       </div>
-       <label htmlFor="password">Password</label>
-       <input  
-       name="password" 
-       type="password"
-       value={password}
-       onChange={(event) => setPassword(event.currentTarget.value)}/>
+      <User.Provider value={{token, setToken}}>
+      <Switch>
+        <Route path="/event-list">
+     <EventListPage />
+        </Route>
+        <Route path="/">
+          <LoginPage/>
+        </Route>
+      </Switch>
+      </User.Provider>
      </div>
-     <button onClick={login}>Login</button>
-    </div>
+    
   );
 }
 
