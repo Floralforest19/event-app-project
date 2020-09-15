@@ -1,5 +1,5 @@
 import React, { useEffect, useContext, useState } from 'react'
-import { UserContext } from '../contexts/UserContext'
+import { UserContext } from '../context/UserContext'
 
 const ROOT_URL = "http://yoshi.willandskill.eu:8999/api/v1/"
 

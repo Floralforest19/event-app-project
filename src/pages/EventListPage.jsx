@@ -1,25 +1,18 @@
 import React, {useContext, useEffect, useState} from 'react'
 import { Link } from 'react-router-dom'
-import { UserContext } from './'
+import EventKit from '../data/EventKit'
 
-const ROOT_URL = "http://yoshi.willandskill.eu:8999/api/v1/"
-const LOGIN_URL = `${ROOT_URL}auth/api-token-auth/`
 
 export default function EventListPage() {
-    const {token} = useContext(UserContext)
     const [eventList, setEventList] = useState(null)
+    const eventKit = new EventKit()
     
     useEffect(() => {
          fetchEventList()
      }, [])
 
      function fetchEventList() {
-        fetch(EVENT_LIST_URL, {
-            headers: {
-                "Content-Type":"application/json",
-                "Authorzation": `Bearer ${token}`
-            }
-        })
+        eventKit.fetchEventList()
         .then(res => res.json())
         .then(data => {
             setEventList(data.results)

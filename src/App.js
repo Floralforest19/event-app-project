@@ -1,7 +1,8 @@
-import React, { useState, useReducer } from 'react';
+import React, { useState } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import EventListPage from './pages/EventListPage';
+import { UserContext } from './context/UserContext'
 import EventDetailPage from './pages/EventDetailPage';
 
 
@@ -10,7 +11,7 @@ function App() {
  const [token, setToken] = useState(null)
   return (
     <div>
-      <User.Provider value={{token, setToken}}>
+      <UserContext.Provider value={{token, setToken}}>
       <Switch>
 
       <Route path="/event/:slug" component={EventDetailPage} />
@@ -22,7 +23,7 @@ function App() {
           <LoginPage/>
         </Route>
       </Switch>
-      </User.Provider>
+      </UserContext.Provider>
      </div>
     
   );
